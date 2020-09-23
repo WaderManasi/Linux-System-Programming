@@ -1,0 +1,2 @@
+Created a text file for demo purpose
+To demonstrate the lseek() and get the offset value
