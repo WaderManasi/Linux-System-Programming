@@ -1,0 +1,18 @@
+///////////////////////////////////////////////////////////////////////////////////////////////
+//                          LINUX SYSTEM PROGRAMMING WITH UNIX INTERNALS                     //
+//                                                                                           //
+//Name: Manasi Wader                                                                         //
+//Topic: Program which accept directory name from user and delete all empty files from that  //
+//          directory.                                                                       //
+///////////////////////////////////////////////////////////////////////////////////////////////
+#include<stdio.h>
+#include<fcntl.h>
+#include<unistd.h>
+int main()
+{
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+//compile: make build
+//run: make dir="name" run
+///////////////////////////////////////////////////////////////////////////////////////////////
