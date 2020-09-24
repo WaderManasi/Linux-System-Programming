@@ -41,7 +41,7 @@ int main(int argc,char* argv[])
         //create absolute path
         sprintf(filename,"%s/%s",argv[1],entry->d_name);
 
-        if(strcmp(argv[2],entry->d_name)==0)
+        if(istrcmp(argv[2],entry->d_name)==0)
         flag=1;
     }
     if(flag==1)
