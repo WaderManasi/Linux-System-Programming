@@ -1,0 +1,31 @@
+- stat() is a unix function used to obtain metadata of a file
+- stat() function has three flavors:
+    -stat() (int stat (const char *path, struct stat *buf))
+    -lstat() (int lstat (const char *path, struct stat *buf))
+    -fstat() (int fstat (int fd, struct stat *buf))
+- Each of these function returns info about file
+- file.stat() returns info about file denoted by PATH
+- file.fstat() returns info about file represented by FILE DESCRIPTOR (fd)
+- lstat is same as stat ,bt incase of symbolic link, it returns info abt link itself not targeted file
+
+
+- stat structure is defined in '<bits/stat.h>' which is included from '<sys/stat.h>'
+- stat structure is as follows:
+
+struct stat
+{
+    dev_t   st_dev;     //ID of device containing file
+    ino_t   st_ino;     //inode number
+    off_t   st_size;    //total size in bytes
+    mode_t  st_mode;    //permissions
+    nlink_t st_nlink;   //no. of hardlinks
+    uid_t   st_uid;     //user ID of owner
+    gid_t   st_gid;     //group ID of owner
+    blksize_t st_blksize;   //blocksize for filesystem
+    blkcnt_t st_blocks; //no. of blocks allocated
+    time_t st_atime;    //last access time
+    time_t st_mtime;    //last modification time
+    time_t st_ctime;    //last status change time
+    dev_t st_rdev;      //device ID (if special file)
+};
+
