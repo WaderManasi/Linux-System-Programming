@@ -7,12 +7,20 @@ Apllication which is used to combine all regular files from directory into one r
 #include<sys/types.h>
 #include<sys/stat.h>
 #include<unistd.h>
+#include<string.h>
 #include<fcntl.h>
 
 //myexe dir_name file_name
 //myexe argv[1]  argv[2]
 //argv[1]:              directory_name containing many files
 //argv[2]:              file name 
+
+struct FileInfo
+{
+    char fname[257];        //file name
+    int fsize;              //file size
+};
+
 int main(int argc,char *argv[])
 {
     if(argc!=3)
@@ -20,11 +28,13 @@ int main(int argc,char *argv[])
         printf("\nInvalid number arguments!\n");
         return -1;
     }
-    int fddest=0;
+    int fddest=0,ret=0,fdsrc=0;
     DIR *dir=NULL;
+    struct FileInfo fobj;   //object of FileInfo structure
     struct dirent *entry;
-    struct stat sobj;       //object of stat() structure
+    struct stat sobj;       //object of stat structure
     char name[257]={'\0'};
+    char buff[1024]={'\0'};
 
     dir=opendir(argv[1]);
     if(dir==NULL)
@@ -47,8 +57,22 @@ int main(int argc,char *argv[])
         stat(name,&sobj);
         if(S_ISREG(sobj.st_mode))
         {
-            printf("%s\n",entry->d_name);  //with this we get wrong values ,hence we create absolute path //printf("%d",)
-            printf("%ld bytes \n\n",sobj.st_size);
+
+            //printf("%s\n",entry->d_name);  //with this we get wrong values ,hence we create absolute path //printf("%d",)
+            //printf("%ld bytes \n\n",sobj.st_size);
+            strcpy(fobj.fname,entry->d_name);
+            fobj.fsize=sobj.st_size;
+            write(fddest,&fobj,sizeof(fobj));
+            memset(&fobj,0,sizeof(fobj));           //string.h
+
+            fdsrc=open(name,O_RDONLY);
+
+            while((ret=read(fdsrc,buff,sizeof(buff)))!=0)
+            {
+                write(fddest,buff,ret);
+            }
+            memset(buff,0,sizeof(buff));
+            close(fdsrc);
         }
     }
 
