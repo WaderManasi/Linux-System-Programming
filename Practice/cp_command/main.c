@@ -17,7 +17,7 @@ Usage:
 
 void CP_Command(char *src,char *dest)
 {
-    int ret=0,fdsrc=0,fddest=0;
+    int ret=0,wr=0,fdsrc=0,fddest=0;
     char buff[1024]={'\0'};         //1024 : 1kb
     fdsrc=open(src,O_RDONLY);
     if(fdsrc==-1)
@@ -29,10 +29,26 @@ void CP_Command(char *src,char *dest)
         printf("\nError: Unable to create destination file %s!\n",dest);
     }
     
-    //
+    //do not use exit() syscall in between the program, generally use it at end of main function    
     while((ret=read(fdsrc,buff,sizeof(buff)))!=0)
     {
-        write(fddest,buff,ret);
+        if(ret==-1)
+        {
+            printf("\nError: Unable to read entire data");
+            close(fdsrc);
+            close(fddest);
+            return ;
+        }
+        wr=write(fddest,buff,ret);
+        if(wr==-1)
+            {
+                printf("\nError: Unable to write data into file\n");
+                close(fdsrc);
+                close(fddest);
+                return;
+            }
+        else
+            printf("\nData written succesfully!\n");
     }
 
     close(fddest);
@@ -52,5 +68,6 @@ int main(int argc,char* argv[])
     }
 
     CP_Command(argv[1],argv[2]);
-    return 0;
+    
+    return 0;       //in main: exit(0)
 }
