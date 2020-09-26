@@ -20,8 +20,10 @@ int main(int argc,char *argv[])
         return -1;
     }
     DIR *dir=NULL;
-    struct dirent entry;
-    
+    struct dirent *entry;
+    struct stat sobj;       //object of stat() structure
+    char name[257]={'\0'};
+
     dir=opendir(argv[1]);
     if(dir==NULL)
     {
@@ -29,5 +31,18 @@ int main(int argc,char *argv[])
         return -1;
     }
 
+    printf("\nName of files are: \n\n");
+    while((entry=readdir(dir))!=NULL)
+    {
+        sprintf(name,"%s/%s",argv[1],entry->d_name);
+        stat(name,&sobj);
+        if(S_ISREG(sobj.st_mode))
+        {
+            printf("%s\n",entry->d_name);  //with this we get wrong values ,hence we create absolute path //printf("%d",)
+            printf("%ld bytes \n\n",sobj.st_size);
+        }
+    }
+
+    closedir(dir);
     return 0;
 }
