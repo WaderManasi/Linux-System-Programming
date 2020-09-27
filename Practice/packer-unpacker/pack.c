@@ -40,6 +40,7 @@ int main(int argc,char *argv[])
     if(dir==NULL)
     {
         printf("\nError: Unable to open %s .",argv[1]);
+        printf("\nUsage: Directory name - File name\n");
         return -1;
     }
 
@@ -54,28 +55,33 @@ int main(int argc,char *argv[])
     while((entry=readdir(dir))!=NULL)
     {
         sprintf(name,"%s/%s",argv[1],entry->d_name);
-        stat(name,&sobj);
+        ret=stat(name,&sobj);
         if(S_ISREG(sobj.st_mode))
         {
-
-            //printf("%s\n",entry->d_name);  //with this we get wrong values ,hence we create absolute path //printf("%d",)
-            //printf("%ld bytes \n\n",sobj.st_size);
+            printf("%s\n",entry->d_name);  //with this we get wrong values ,hence we create absolute path //printf("%d",)
+            printf("%ld bytes \n\n",sobj.st_size);
             strcpy(fobj.fname,entry->d_name);
             fobj.fsize=sobj.st_size;
+            
+            //write file info in file
             write(fddest,&fobj,sizeof(fobj));
+            
             memset(&fobj,0,sizeof(fobj));           //string.h
 
             fdsrc=open(name,O_RDONLY);
 
-            while((ret=read(fdsrc,buff,sizeof(buff)))!=0)
+            while((ret=read(fdsrc,&buff,sizeof(buff)))!=0)
             {
                 write(fddest,buff,ret);
             }
             memset(buff,0,sizeof(buff));
             close(fdsrc);
+            printf("%s\n",entry->d_name);  //with this we get wrong values ,hence we create absolute path //printf("%d",)
+            printf("%ld bytes \n\n",sobj.st_size);
+            
         }
     }
-
+    close(fddest);
     closedir(dir);
     return 0;
 }
