@@ -1,0 +1,1 @@
+cmd_/home/manasi/Desktop/demo1/demo1.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/manasi/Desktop/demo1/demo1.ko /home/manasi/Desktop/demo1/demo1.o /home/manasi/Desktop/demo1/demo1.mod.o;  true
