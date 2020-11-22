@@ -1,0 +1,24 @@
+- There are two types of FILES.
+	- Regular files
+	- Special files
+		- Device files
+		- FIFO
+- There are two types of DEVICE FILES (based on types of devices)
+	- Character devices: Byte by Byte data
+	- Block devices: Any number of Bytes
+- #### Block drivers have a completely different interface to the kernel than Char devices ####
+- Character Devices:
+	- Can be accessed as a stream of bytes.
+	- Implements at least the OPEN, CLOSE, READ, WRITE system calls.
+	- Eg. of char devices: 
+		- Text console (/dev/console)
+		- Serial ports (/dev/ttyS0)
+- Block Devices:
+	- It permits transfer of any number of bytes of data.
+	- Are accessed by filesystem nodes in /dev directory
+	- It is a device which can host  a file system.
+	- Eg. of block devices:
+		- Disk
+- Network Interfaces:
+	-  A device that is  able to exchange data with other hosts.
+	- A Network Interface is in charge of Sending & Receiving data packets ,which is driven by network subsystem of kernel.
