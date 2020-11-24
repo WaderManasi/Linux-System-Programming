@@ -24,4 +24,4 @@
 	- A Network Interface is in charge of Sending & Receiving data packets ,which is driven by network subsystem of kernel.
 	- A Network driver knows nothing about individual connections ,it only Handles Packets.
 	- Communication between the "Kernel & Network device driver" is completely different than of char and block drivers.
-	- Instead of READ ,WRITE the kernel calls functions related to Packets Transmission.
+	- Instead of READ ,WRITE the kernel calls functions related to Packets Transmission
