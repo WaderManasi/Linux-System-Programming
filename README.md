@@ -1,2 +1,2 @@
 # Linux-System-Programming
-![](linux.jpg)
+![](linux.png)
